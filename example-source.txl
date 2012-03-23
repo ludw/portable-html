@@ -6,4 +6,4 @@ h1. This is a example
 Hello
 this is a *example*
 
-!image.png!
+!fixtures/image.png!

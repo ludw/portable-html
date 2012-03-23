@@ -3,6 +3,7 @@ import sys
 import textile
 import re
 import unittest
+import base64
 from jinja2 import Environment, PackageLoader
 from BeautifulSoup import BeautifulSoup as bs
 from urllib2 import urlopen
@@ -32,12 +33,20 @@ class Ptm():
         soup = bs(html)
         for img in soup.findAll("img"):
             if img.has_key("src"):
-                src = img.src
-                data = urlopen(img)
+                src = img.get("src")
+                if src[:4] == 'http':
+                    u = urlopen(src)
+                    data = u.read()
+                    u.close()
+                else:
+                    f = open(src)
+                    data = f.read()
+                    f.close()
                 b64 = base64.b64encode(data)
-                newsrc = "data:image/png;base64,"+b64+"="
-
-        return str(soup)
+                newsrc = "data:image/png;base64,"+b64
+                img["src"] = newsrc
+        
+        return soup.prettify()
     
     def write_output(self, path, data):
         out = open(path, 'w')

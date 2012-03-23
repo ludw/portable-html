@@ -55,12 +55,12 @@ class Ptm():
     
     def process(self, infile, outfile):
         indata = self.read_infile(infile)
-        context, text = self.parse_infile(indata)
-        context['body'] = textile.textile(text)
+        config, text = self.parse_infile(indata)
+        config['body'] = textile.textile(text)
     
         env = Environment(loader=PackageLoader('ptm', 'templates'))
-        template = env.get_template(context['template'])
-        html = template.render(context)
+        template = env.get_template(config['template'])
+        html = template.render(config)
     
         html = self.replace_images(html)
         
@@ -71,6 +71,17 @@ class TestPtm(unittest.TestCase):
     
     def setUp(self):
         self.ptm = Ptm()
+    
+    def testReadAndParseInfile(self):
+        infile = self.ptm.read_infile("example-source.txl")
+
+        expected_config = {'template': 'default.html', 'title':'Some title' }
+        expected_text = "\nh1. This is a example\n\nHello\nthis is a *example*\n\n!fixtures/image.png!\n\n"
+
+        config, text = self.ptm.parse_infile(infile)
+        
+        self.assertEqual(expected_config, config)
+        self.assertEqual(expected_text, text)
 
     def testReplaceImages(self):
         html = open("fixtures/input_replace_image.html").read()
@@ -79,8 +90,6 @@ class TestPtm(unittest.TestCase):
         result = self.ptm.replace_images(html)
 
         self.assertEqual(expected, result)
-
-
 
 def main(args):
     if len(args) == 1 and args[0] == 'test':

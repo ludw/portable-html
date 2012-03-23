@@ -1,4 +1,4 @@
-title=Somet title
+title=Some title
 template=default.html
 
 h1. This is a example

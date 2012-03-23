@@ -13,11 +13,13 @@ def read_infile(path):
 def parse_infile(infile):
     config = {'template': 'default.html'}
     text = ""
+    configdone = False
     for line in infile.split("\n"):
-        if re.match(r"^[^=]+=[^=]+$", line):
+        if not configdone and re.match(r"^[^=]+=[^=]+$", line):
             key, val = line.split('=')
             config[key] = val
         else:
+            configdone = True
             text += line+"\n"
 
     return config, text

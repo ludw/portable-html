@@ -5,7 +5,7 @@ import re
 import unittest
 import base64
 from jinja2 import Environment, PackageLoader
-from BeautifulSoup import BeautifulSoup as bs
+from bs4 import BeautifulSoup as bs
 from urllib2 import urlopen
 
 class Ptm():
@@ -43,10 +43,16 @@ class Ptm():
                     data = f.read()
                     f.close()
                 b64 = base64.b64encode(data)
-                newsrc = "data:image/png;base64,"+b64
+                ext = src.split('.')[-1]
+                if ext == 'png':
+                    newsrc = "data:image/png;base64,"+b64
+                if ext == 'gif':
+                    newsrc = "data:image/gif;base64,"+b64
+                if ext == 'jpg' or ext == 'jpeg':
+                    newsrc = "data:image/jpg;base64,"+b64
                 img["src"] = newsrc
         
-        return soup.prettify()
+        return soup.prettify(formatter="html")
     
     def write_output(self, path, data):
         out = open(path, 'w')
@@ -71,6 +77,7 @@ class TestPtm(unittest.TestCase):
     
     def setUp(self):
         self.ptm = Ptm()
+        self.maxDiff = None
     
     def testReadAndParseInfile(self):
         infile = self.ptm.read_infile("example-source.txl")
@@ -86,10 +93,10 @@ class TestPtm(unittest.TestCase):
     def testReplaceImages(self):
         html = open("fixtures/input_replace_image.html").read()
 
-        expected = open("fixtures/expected_replace_image.html").read() 
+        expected = unicode(open("fixtures/expected_replace_image.html").read())
         result = self.ptm.replace_images(html)
 
-        self.assertEqual(expected, result)
+        self.assertEqual(expected, result+"\n")
 
 def main(args):
     if len(args) == 1 and args[0] == 'test':

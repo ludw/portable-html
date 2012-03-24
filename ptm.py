@@ -29,6 +29,22 @@ class Ptm():
     
         return config, text
     
+    def build_html(self, config, text):
+        config['body'] = self.render_textile(text) 
+        html = self.apply_template(config)
+        html = self.replace_images(html)
+        return html
+
+    def render_textile(self, text):
+        html = textile.textile(text)
+        return html
+
+    def apply_template(self, config):
+        env = Environment(loader=PackageLoader('ptm', 'templates'))
+        template = env.get_template(config['template'])
+        html = template.render(config)
+        return html
+
     def replace_images(self, html):
         soup = bs(html)
         for img in soup.findAll("img"):
@@ -52,7 +68,7 @@ class Ptm():
                     newsrc = "data:image/jpg;base64,"+b64
                 img["src"] = newsrc
         
-        return soup.prettify(formatter="html")
+        return unicode(soup) 
     
     def write_output(self, path, data):
         out = open(path, 'w')
@@ -61,14 +77,9 @@ class Ptm():
     
     def process(self, infile, outfile):
         indata = self.read_infile(infile)
+
         config, text = self.parse_infile(indata)
-        config['body'] = textile.textile(text)
-    
-        env = Environment(loader=PackageLoader('ptm', 'templates'))
-        template = env.get_template(config['template'])
-        html = template.render(config)
-    
-        html = self.replace_images(html)
+        html = self.build_html(config, text)
         
         self.write_output(outfile, html)
     
@@ -97,6 +108,16 @@ class TestPtm(unittest.TestCase):
         result = self.ptm.replace_images(html)
 
         self.assertEqual(expected, result+"\n")
+
+    def testCode(self):
+        infile = open("fixtures/input_code.html").read()
+        expected = unicode(open("fixtures/expected_code.html").read())
+        
+        config, text = self.ptm.parse_infile(infile)
+        result = self.ptm.build_html(config, text)
+
+        self.assertEqual(expected, result+"\n")
+        
 
 def main(args):
     if len(args) == 1 and args[0] == 'test':

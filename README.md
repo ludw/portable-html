@@ -1,6 +1,5 @@
 Portable HTML
 ===============
-
 Portable-HTML is a tool for creating portable self-contained HTML documents.
 The goal is to make it really easy to create a html file that contains text, style and images. Images will be included as base64 encoded data in the same file.
 
@@ -12,6 +11,11 @@ To generate a portable html document from a source, just run:
 
 	$ ptm.py source.txl out.html
 
+Testing the code
+-------------------
+Tests can be ran with the following command:
+
+    $ ptm.py test
 
 Requirements
 -------------------
@@ -19,3 +23,4 @@ The following python packages must be installed:
 
 	textile
 	jinja2
+    bs4

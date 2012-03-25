@@ -46,29 +46,34 @@ class Ptm():
         return html
 
     def replace_images(self, html):
-        soup = bs(html)
-        for img in soup.findAll("img"):
-            if img.has_key("src"):
-                src = img.get("src")
-                if src[:4] == 'http':
-                    u = urlopen(src)
-                    data = u.read()
-                    u.close()
-                else:
-                    f = open(src)
-                    data = f.read()
-                    f.close()
-                b64 = base64.b64encode(data)
-                ext = src.split('.')[-1]
-                if ext == 'png':
-                    newsrc = "data:image/png;base64,"+b64
-                if ext == 'gif':
-                    newsrc = "data:image/gif;base64,"+b64
-                if ext == 'jpg' or ext == 'jpeg':
-                    newsrc = "data:image/jpg;base64,"+b64
-                img["src"] = newsrc
-        
-        return unicode(soup) 
+        html = unicode(html)
+        imgre = re.compile(r'<img [^>]*?src="([^"]+)"[^>]*?/?>')
+        imgs = []
+        paths = []
+        for img in imgre.finditer(html):
+            imgs.append(img.group(0))
+            paths.append(img.group(1))
+        for i, path in enumerate(paths):
+            if path[:4] == 'http':
+                u = urlopen(path)
+                data = u.read()
+                u.close()
+            else:
+                f = open(path)
+                data = f.read()
+                f.close()
+            b64 = base64.b64encode(data)
+            ext = path.split('.')[-1]
+            if ext == 'png':
+                newsrc = "data:image/png;base64,"+b64
+            if ext == 'gif':
+                newsrc = "data:image/gif;base64,"+b64
+            if ext == 'jpg' or ext == 'jpeg':
+                newsrc = "data:image/jpg;base64,"+b64
+            
+            newimg = imgs[i].replace(path, newsrc)
+            html = html.replace(imgs[i], newimg)
+        return html
     
     def write_output(self, path, data):
         out = open(path, 'w')
@@ -107,7 +112,7 @@ class TestPtm(unittest.TestCase):
         expected = unicode(open("fixtures/expected_replace_image.html").read())
         result = self.ptm.replace_images(html)
 
-        self.assertEqual(expected, result+"\n")
+        self.assertEqual(expected, result)
 
     def testCode(self):
         infile = open("fixtures/input_code.html").read()

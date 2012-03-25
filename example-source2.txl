@@ -44,6 +44,17 @@ h4. A list
 ** Another subitem
 # A third item
 
+h4. Smaller image
+
+!(right)fixtures/image2.jpg!
+%(right)One way to make a figuretext%
+
+Nunc feugiat, mauris non ultrices lobortis, metus arcu vulputate eros, vitae aliquam massa sapien non nisi. 
+
+Praesent pharetra, justo sit amet ornare ultricies, neque justo rutrum ipsum, id vestibulum nibh augue quis elit. Duis egestas, tellus ut vehicula feugiat, libero augue luctus turpis, eu varius odio nunc in augue.
+
+Nunc feugiat, mauris non ultrices lobortis, metus arcu vulputate eros, vitae aliquam massa sapien non nisi. Praesent pharetra, justo sit amet ornare ultricies, neque justo rutrum ipsum, id vestibulum nibh augue quis elit. Duis egestas, tellus ut vehicula feugiat, libero augue luctus turpis, eu varius odio nunc in augue.
+
 h4. Fotnotes
 
 fn1. A example footnote

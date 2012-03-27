@@ -9,52 +9,60 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}body{line-height:1;}ol,ul{list-style:none;}blockquote,q{quotes:none;}blockquote:before,blockquote:after,q:before,q:after{content:none;}table{border-collapse:collapse;border-spacing:0;}
     
 body {
-    font: 14px Helvetica, Arial, sans-serif;
+    font: 13px Calibri, Helvetica, Arial, sans-serif;
     line-height: 1.4;
-    background: #ddd;
+    background: #f0f0f0;
 }
 
 p {
     margin: 5px 0 10px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	color: #00ADEF;
+}
+
 h1 {
     margin: 30px 0 5px 0;
-    font: Bold 30px Helvetica, Arial, sans-serif;
+    font: 32px Helvetica, Arial, sans-serif;
 }
 
 h2 {
     margin: 30px 0 5px 0;
-    font: Bold 26px Helvetica, Arial, sans-serif;
+    font: Normal 25px Helvetica, Arial, sans-serif;
 }
 
 h3 {
     margin: 20px 0 5px 0;
-    font: Bold 20px Helvetica, Arial, sans-serif;
+    font: Normal 15px Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
 }
 
 h4 {
     margin: 20px 0 5px 0;
-    font: Bold 18px Helvetica, Arial, sans-serif;
+    font: Normal 15px Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
 }
 
 h5 {
     margin: 15px 0 5px 0;
-    font: Bold 16px Helvetica, Arial, sans-serif;
+    font: Normal 15px Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
 }
 
 h6 {
     margin: 15px 0 5px 0;
-    font: Bold 14px Helvetica, Arial, sans-serif;
+    font: Normal 15px Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
 }
 
 img {
     max-width: 100%;    
 }
 
-a { color: #00e; }
-a:visited { color: #551a8b; }
-a:hover { color: #06e; }
+a { color: #0079A7; }
+a:visited { color: #6F00A7; }
+a:hover { color: #035E80; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 
@@ -111,7 +119,7 @@ sub {
 
 .page {
     max-width: 650px;
-    margin: 0 auto;
+    margin: 0 0 0 20px;
     background: #f8f8f8;
     color: #222;
     padding: 20px 40px;
@@ -119,16 +127,49 @@ sub {
 
 .right, .left {
     width: 50%; display: block;
-    margin: 0 0 0 10px;
+    margin: 5px 0 5px 10px;
 }
 .right { float: right; }
 .left { float: left; }
+
+.logo {
+	position: fixed;
+	right: 0;
+	top: 15%;
+}
+
+.end {
+	margin: 100px 0 0 0;	
+	color: #666;
+}
+
+.end img {
+	float: right;
+	margin-top: 5px;
+}
+
+@media print {
+	.page {
+		margin: 0;
+		padding: 0 20px;
+	}
+	.logo {
+		display: none;
+	}
+	.end { display: none; }
+}
 
     </style>
 </head>
 <body>
     <div class="page">
         {{ body }}	
+		<div class="end">
+			<p><img src="templates/codemill_text.png" alt="CodeMill">contact@codemill.se<br />www.codemill.se</p>
+		</div>
     </div>
+	<div class="logo">
+		<img src="templates/codemill.png" alt="" />
+	</div>
 </body>
 </html>

@@ -1,11 +1,14 @@
 title=Some title
-template=default.html
+template=codemill.html
 
 h1. This is a example
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nisl ante, lobortis elementum porta vel, lobortis ut nisi. "Aenean gravida":http://example.com pretium nisi eu gravida. Sed condimentum enim id erat luctus quis rutrum lectus varius. Sed egestas, tortor ut pulvinar eleifend, odio risus pretium mauris, eget egestas metus massa non lacus.
 
 Nunc feugiat, mauris non ultrices lobortis, metus arcu vulputate eros, vitae aliquam massa sapien non nisi. Praesent pharetra, justo sit amet ornare ultricies, neque justo rutrum ipsum, id vestibulum nibh augue quis elit[1].
+
+Muris non ultrices lobortis, metus arcu vulputate eros, vitae aliquam massa sapien non nisi. Praesent pharetra, justo sit amet ornare ultricies, neque justo rutrum ipsum, id vestibulum nibh augue.
+
 
 Duis egestas, *tellus ut vehicula* feugiat, _libero augue luctus_ turpis, eu varius odio nunc in augue.
 
@@ -46,8 +49,10 @@ h4. A list
 
 h4. Smaller image
 
-!(right)fixtures/image2.jpg!
-%(right)One way to make a figuretext%
+Nunc feugiat, mauris non ultrices lobortis, metus arcu vulputate eros, vitae aliquam massa sapien non nisi. Praesent pharetra, justo sit amet ornare ultricies, neque justo rutrum ipsum, id vestibulum nibh augue quis elit. Duis egestas, tellus ut vehicula feugiat, libero augue luctus turpis, eu varius odio nunc in augue.
+
+p(right). !fixtures/image2.jpg!
+One way to make a figuretext
 
 Nunc feugiat, mauris non ultrices lobortis, metus arcu vulputate eros, vitae aliquam massa sapien non nisi. 
 
